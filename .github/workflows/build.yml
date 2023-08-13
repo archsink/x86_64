@@ -22,6 +22,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        submodules: true # TODO: Update submodule
     - name: Set up QEMU
       if: matrix.platform != 'linux/amd64'
       uses: docker/setup-qemu-action@v2
