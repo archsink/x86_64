@@ -44,7 +44,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.arch }}
-        path: build
+        path: src/build
         retention-days: 1
   
   release:
@@ -59,7 +59,7 @@ jobs:
     - name: Download build artifacts for each architecture
       uses: actions/download-artifact@v3
       with:
-        path: build
+        path: src/build
     - name: Build package database
       run: >
         docker run
@@ -76,7 +76,8 @@ jobs:
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
     - name: Update PKGBUILDs and .SRCINFOs
-      run: cp -r build/x86_64/src/ .
+      run: cp -r src/build/x86_64/src/ src/
+      # TODO: We need to commit (and push) this in the submodule too
     - name: Commit updates
       run: |
         git add -A
