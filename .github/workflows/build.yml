@@ -70,7 +70,7 @@ jobs:
         --entrypoint /src/arch-repo-x86_64/src/build-db
         archlinux
     - name: List db packages
-      run: ls -l db
+      run: ls -l src/db
     - name: Set up Git config
       run: |
         git config --global user.name "github-actions[bot]"
@@ -92,4 +92,4 @@ jobs:
       run: |
         tag="$(date '+%Y-%m-%d-%H-%M')"
         gh release create --title "$tag" "$tag" || true
-        gh release upload --clobber "$tag" db/*
+        gh release upload --clobber "$tag" src/db/*
