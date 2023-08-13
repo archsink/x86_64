@@ -41,18 +41,18 @@ jobs:
         --env BUILDER_UID=$(id -u)
         --env BUILDER_GID=$(id -g)
         --platform "${{ matrix.platform }}"
-        --mount type=bind,src="$PWD",dst=/src/arch-repo-x86_64
-        --workdir /src/arch-repo-x86_64
-        --entrypoint /src/arch-repo-x86_64/src/docker-entrypoint
+        --mount type=bind,src="$PWD",dst="/src/${{ github.repository }}"
+        --workdir "/src/${{ github.repository }}"
+        --entrypoint "/src/${{ github.repository }}/src/docker-entrypoint"
         ${{ matrix.image }}
     - name: Build package database
       run: >
         docker run
         --rm
         --user "$(id -u):$(id -g)"
-        --mount type=bind,src="$PWD",dst=/src/arch-repo-x86_64
-        --workdir /src/arch-repo-x86_64
-        --entrypoint /src/arch-repo-x86_64/src/build-db
+        --mount type=bind,src="$PWD",dst="/src/${{ github.repository }}"
+        --workdir "/src/${{ github.repository }}"
+        --entrypoint "/src/${{ github.repository }}/src/build-db"
         archlinux
     - name: List db packages
       run: ls -l src/db
