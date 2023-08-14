@@ -64,7 +64,6 @@ jobs:
         tree src/db
     - name: Set up Git config
       run: |
-        git config --global credential.helper '!f() { echo "username=fwcd-ci"; echo "password=${{ secrets.CI_PAT }}"; }; f'
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
     - name: Update PKGBUILDs and .SRCINFOs
@@ -75,7 +74,7 @@ jobs:
       run: |
         git add -A
         git commit -m "Update packages ($(date '+%Y-%m-%d-%H-%M'))" || true 
-        git push
+        git push "https://fwcd-ci:${{ secrets.CI_PAT }}@github.com/fwcd/arch-repo.git"
     - name: Commit and push updates
       if: github.ref == 'refs/heads/main'
       run: |
