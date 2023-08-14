@@ -74,6 +74,7 @@ jobs:
       run: |
         git add -A
         git commit -m "Update packages ($(date '+%Y-%m-%d-%H-%M'))" || true 
+        git config --local credential.helper ""
         git push "https://fwcd-ci:${{ secrets.CI_PAT }}@github.com/fwcd/arch-repo.git"
     - name: Commit and push updates
       if: github.ref == 'refs/heads/main'
