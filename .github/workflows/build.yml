@@ -43,7 +43,7 @@ jobs:
         --env BUILDER_GID=$(id -g)
         --platform "${{ matrix.platform }}"
         --mount type=bind,src="$PWD",dst="/src/${{ github.repository }}"
-        --workdir "/src/${{ github.repository }}"
+        --workdir "/src/${{ github.repository }}/src"
         --entrypoint "/src/${{ github.repository }}/src/with-builder-user"
         ${{ matrix.image }}
         ./build-pkgs
@@ -53,7 +53,7 @@ jobs:
         --rm
         --user "$(id -u):$(id -g)"
         --mount type=bind,src="$PWD",dst="/src/${{ github.repository }}"
-        --workdir "/src/${{ github.repository }}"
+        --workdir "/src/${{ github.repository }}/src"
         archlinux
         ./build-db
     - name: Output build trees for debugging
