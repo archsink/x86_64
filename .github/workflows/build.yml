@@ -65,15 +65,6 @@ jobs:
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-    - name: Update PKGBUILDs and .SRCINFOs
-      run: cp -r src/build/src/. src/
-    - name: Commit and push updated PKGBUILDs and .SRCINFOs
-      if: github.ref == 'refs/heads/main'
-      working-directory: src
-      run: |
-        git add -A
-        git commit -m "Update packages ($(date '+%Y-%m-%d-%H-%M'))" || true 
-        git push "https://${{ secrets.CI_PAT }}@github.com/fwcd/arch-repo.git"
     - name: Commit and push updates
       if: github.ref == 'refs/heads/main'
       run: |
